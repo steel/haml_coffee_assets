@@ -22,7 +22,12 @@ module HamlCoffeeAssets
     end
 
     def self.call(input)
-      filename = input[:name]
+      filename = input[:filename]
+      load_path = input[:load_path]
+
+      filename = filename.gsub(load_path, '')
+      # strip leading /
+      filename = filename.gsub(/^\//, '')
       source   = input[:data]
       context  = input[:environment].context_class.new(input)
 
